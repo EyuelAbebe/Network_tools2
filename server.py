@@ -25,8 +25,21 @@ class Server():
     def return_uri(self, requested_path):
         return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n %s' % requested_path
 
-    def get(self):
-        return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n200 OK'
+    def get(self, requested_path):
+        import os
+        import mimetypes
+        _cwd = os.getcwd()
+        _lookUpPath = _cwd+requested_path
+        #fileType = requested_path.split('/')[-1]
+        _fileType = os.path.splitext(_lookUpPath)[1]
+        fileType = mimetypes.types_map[_fileType]
+
+        try:
+            with open(_lookUpPath, 'r') as _file:
+               read_file= _file.read()
+            return 'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s'%(fileType, read_file)
+        except IOError:
+            return self.http_error((404, 'Not Found'))
 
     def http_error(self, error):
         return 'HTTP/1.1 %d %s\r\nContent-Type: text/plain\r\n\r\n%d %s' %(error+error)
@@ -39,7 +52,7 @@ class Server():
                 return _request
             else:
                 if _request['method'] == 'GET' and _request['scheme'] == 'HTTP/1.1':
-                    return self.get()
+                    return self.get(_request[1])
 
                 else:
                     if _request['method'] != 'GET':

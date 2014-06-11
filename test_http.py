@@ -31,7 +31,7 @@ def test_505():
 
     _client = Client()
     _client.send("GET / HTTP/1.0")
-    assert _client.receive() == 'HTTP/1.1 505 HTTP Version Not Supported\r\nContent-Type: text/plain\r\n\r\n505 HTTP Version Not Supported' 
+    assert _client.receive() == 'HTTP/1.1 505 HTTP Version Not Supported\r\nContent-Type: text/plain\r\n\r\n505 HTTP Version Not Supported'
 
 
 def test_404():

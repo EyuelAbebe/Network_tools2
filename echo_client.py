@@ -7,7 +7,7 @@ class Client:
 
     def __init__(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
-        self.client_socket.connect(('127.0.0.1', 4016))
+        self.client_socket.connect(('127.0.0.1', 4017))
         self.buffer_size = 32
 
     def send(self, message):

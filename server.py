@@ -5,6 +5,7 @@ class Server():
 
     def __init__(self, port=4016):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REDUSEADDR, 1) # tells the OS to release the port after server is closed, and not hold to it.
         self.server_socket.bind(('127.0.0.1', port))
         self.server_socket.listen(1)
 

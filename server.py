@@ -3,7 +3,7 @@ import socket
 
 class Server():
 
-    def __init__(self, port = 4015):
+    def __init__(self, port = 4016):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
         self.server_socket.bind(('127.0.0.1', port))
         self.server_socket.listen(1)
@@ -24,10 +24,12 @@ class Server():
         return 'HTTP/1.1 200 OK Content-Type: text/plain\r\n %s' %requested_path
 
     def get(self):
-        return 'HTTP/1.1 200 OK Content-Type: text/plain\r\n200 OK'
+        #return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n200 OK'
+        return "200 OK"
 
     def http_error(self, error):
-        return 'HTTP/1.1 %d %s Content-Type: text/plain\r\n%d %s'%(error)
+        #return 'HTTP/1.1 %d %s Content-Type: text/plain\r\n%d %s'%(error+error)
+        return "%d %s"%error
 
     def do(self, _request):
         try:
@@ -62,7 +64,7 @@ class Server():
             done = False
             while not done:
                 recieved_message = conn.recv(buffer_size)
-                if not recieved_message:
+                if len(recieved_message) < buffer_size: # if not recieved_message did not catch the end of the request
                     done = True
 
                 response.append(recieved_message)

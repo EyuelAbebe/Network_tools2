@@ -1,4 +1,8 @@
 Network_tools2
 ==============
 
-Server Related
+ Worked with John
+
+ Used the following materials:
+
+  1. http://pymotw.com/2/BaseHTTPServer/index.html

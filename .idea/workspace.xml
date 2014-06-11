@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edea812a-6915-45e3-988b-cba8a794aa58" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo_client.py" afterPath="$PROJECT_DIR$/echo_client.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.py" afterPath="$PROJECT_DIR$/server.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_http.py" afterPath="$PROJECT_DIR$/test_http.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Network_tools2.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402513318133" ignored="false" />
-    <file path="/server.py" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402513693681" ignored="false" />
+    <file path="/server.py" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402526119718" ignored="false" />
     <file path="$PROJECT_DIR$/../Network_tools/echo_client.py" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402454678150" ignored="false" />
     <file path="/README.md" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402453614745" ignored="false" />
     <file path="/.gitignore" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402525345571" ignored="false" />
+    <file path="/test_http.py" changelist="edea812a-6915-45e3-988b-cba8a794aa58" time="1402526279854" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +34,7 @@
       <file leaf-file-name="server.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="32" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0">
+            <state line="51" column="46" selection-start="1978" selection-end="1978" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -46,7 +43,7 @@
       <file leaf-file-name="test_http.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_http.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="52" selection-start="175" selection-end="175" vertical-scroll-proportion="0.19258203">
+            <state line="34" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.7275321">
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -277,14 +274,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="32" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0">
+        <state line="51" column="46" selection-start="1978" selection-end="1978" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_http.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="52" selection-start="175" selection-end="175" vertical-scroll-proportion="0.19258203">
+        <state line="34" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.7275321">
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

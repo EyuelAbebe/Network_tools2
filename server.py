@@ -19,7 +19,8 @@ class Server():
 
             return parsed_message
         except IndexError:
-            return self.http_error((400, 'Bad Request'))
+            raise IndexError
+            #return self.http_error((400, 'Bad Request'))
 
     def return_uri(self, requested_path):
         return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n %s' % requested_path
@@ -49,6 +50,10 @@ class Server():
                         return self.http_error((404, 'Not Found'))
 
                     return self.http_error((404, 'Not Found'))
+
+        except IndexError:
+            return self.http_error((400, 'Bad Request'))
+
         except:
             return self.http_error((500, 'Server Error'))
 

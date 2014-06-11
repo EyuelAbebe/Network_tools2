@@ -5,7 +5,7 @@ class Server():
 
     def __init__(self, port=4016):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REDUSEADDR, 1) # tells the OS to release the port after server is closed, and not hold to it.
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # tells the OS to release the port after server is closed, and not hold to it.
         self.server_socket.bind(('127.0.0.1', port))
         self.server_socket.listen(1)
 
@@ -22,15 +22,13 @@ class Server():
             return self.http_error((400, 'Bad Request'))
 
     def return_uri(self, requested_path):
-        return 'HTTP/1.1 200 OK Content-Type: text/plain\r\n %s' % requested_path
+        return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n %s' % requested_path
 
     def get(self):
-        # return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n200 OK'
-        return "200 OK"
+        return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n200 OK'
 
     def http_error(self, error):
-        # return 'HTTP/1.1 %d %s Content-Type: text/plain\r\n%d %s'%(error+error)
-        return "%d %s" % error
+        return 'HTTP/1.1 %d %s\r\nContent-Type: text/plain\r\n\r\n%d %s' %(error+error)
 
     def do(self, _request):
         try:
@@ -72,11 +70,9 @@ class Server():
 
             response = ''.join(response)
 
-            print response
-            # import pdb; pdb.set_trace()
             response = self.do(response)
-            print response
-
+            print "RETURNED: " + response.split("\r\n\r\n")[1]
+            print "+"*100
             conn.sendall(response)
             conn.close()
 

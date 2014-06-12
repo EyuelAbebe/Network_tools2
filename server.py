@@ -25,8 +25,24 @@ class Server():
     def return_uri(self, requested_path):
         return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n %s' % requested_path
 
-    def get(self):
-        return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n200 OK'
+    def get(self, requested_path):
+        import os
+        import mimetypes
+        _cwd = os.getcwd()
+
+        if requested_path == '/':
+            requested_path = '/root/html/index.html'
+
+        _lookUpPath = _cwd + requested_path
+        _fileType = os.path.splitext(_lookUpPath)[1]
+        fileType = mimetypes.types_map[_fileType]
+
+        try:
+            with open(_lookUpPath, 'r') as _file:
+               read_file= _file.read()
+            return 'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s' %(fileType, read_file)
+        except IOError:
+            return self.http_error((404, 'Not Found'))
 
     def http_error(self, error):
         return 'HTTP/1.1 %d %s\r\nContent-Type: text/plain\r\n\r\n%d %s' %(error+error)
@@ -35,21 +51,18 @@ class Server():
         try:
             _request = self.parse_message(_request)
 
-            if type(_request) != dict:
-                return _request
+            if _request['method'] == 'GET' and _request['scheme'] == 'HTTP/1.1':
+                return self.get(_request['path'])
+
             else:
-                if _request['method'] == 'GET' and _request['scheme'] == 'HTTP/1.1':
-                    return self.get()
-
-                else:
-                    if _request['method'] != 'GET':
-                        return self.http_error((405, 'Method Not Allowed'))
-                    if _request['scheme'] != 'HTTP/1.1':
-                        return self.http_error((505, 'HTTP Version Not Supported'))
-                    if not _request['path']:
-                        return self.http_error((404, 'Not Found'))
-
+                if _request['method'] != 'GET':
+                    return self.http_error((405, 'Method Not Allowed'))
+                if _request['scheme'] != 'HTTP/1.1':
+                    return self.http_error((505, 'HTTP Version Not Supported'))
+                if not _request['path']:
                     return self.http_error((404, 'Not Found'))
+
+                return self.http_error((404, 'Not Found'))
 
         except IndexError:
             return self.http_error((400, 'Bad Request'))
@@ -74,12 +87,15 @@ class Server():
                 response.append(recieved_message)
 
             response = ''.join(response)
-
+            print "+"*100
+            print "REQUESTED: " + str(response.split("\r\n")[0].split()[1])
+            print "-"*20
             response = self.do(response)
-            print "RETURNED: " + response.split("\r\n\r\n")[1]
+            print "RESPONSE: " + str(response.split("\r\n")[0].split()[1:3])
             print "+"*100
             conn.sendall(response)
             conn.close()
+
 
 
 if __name__ == "__main__":

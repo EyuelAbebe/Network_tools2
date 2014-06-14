@@ -1,4 +1,5 @@
 import socket
+from generate_tree import return_Tree
 
 
 class Server():
@@ -30,8 +31,10 @@ class Server():
         import mimetypes
         _cwd = os.getcwd()
 
-        if requested_path == '/':
-            requested_path = '/root/html/index.html'
+        if requested_path[-1] == '/':
+
+            #requested_path = '/root/html/index.html'
+            return'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s' % ('text/html', return_Tree())
 
         _lookUpPath = _cwd + requested_path
         _fileType = os.path.splitext(_lookUpPath)[1]
@@ -85,16 +88,19 @@ class Server():
                     done = True
 
                 response.append(recieved_message)
-
-            response = ''.join(response)
-            print "+"*100
-            print "REQUESTED: " + str(response.split("\r\n")[0].split()[1])
-            print "-"*20
-            response = self.do(response)
-            print "RESPONSE: " + str(response.split("\r\n")[0].split()[1:3])
-            print "+"*100
-            conn.sendall(response)
-            conn.close()
+            if len(response) > 1: # prevents crash when chrome checks connection
+                response = ''.join(response)
+                print "+"*100
+                print "REQUESTED: " + str(response.split("\r\n")[0].split()[1])
+                print "-"*20
+                response = self.do(response)
+                print "RESPONSE: " + str(response.split("\r\n")[0].split()[1:3])
+                print "+"*100
+                print response
+                conn.sendall(response)
+                conn.close()
+            else:
+                continue
 
 
 

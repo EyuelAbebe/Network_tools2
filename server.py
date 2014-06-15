@@ -21,7 +21,6 @@ class Server():
             return parsed_message
         except IndexError:
             raise IndexError
-            #return self.http_error((400, 'Bad Request'))
 
     def return_uri(self, requested_path):
         return 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n %s' % requested_path
@@ -33,7 +32,6 @@ class Server():
 
         if requested_path[-1] == '/':
 
-            #requested_path = '/root/html/index.html'
             return'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s' % ('text/html', return_Tree())
 
         _lookUpPath = _cwd + requested_path
@@ -88,19 +86,24 @@ class Server():
                     done = True
 
                 response.append(recieved_message)
-            if len(response) > 1: # prevents crash when chrome checks connection
-                response = ''.join(response)
-                print "+"*100
-                print "REQUESTED: " + str(response.split("\r\n")[0].split()[1])
-                print "-"*20
-                response = self.do(response)
-                print "RESPONSE: " + str(response.split("\r\n")[0].split()[1:3])
-                print "+"*100
-                print response
-                conn.sendall(response)
-                conn.close()
-            else:
+            # if len(response) > 1: # prevents crash when chrome checks connection
+
+            if response == ['']:
+                print 'waiting'
                 continue
+
+            response = ''.join(response)
+            print "+"*100
+            print "REQUESTED: " + str(response.split("\r\n")[0].split()[1])
+            print "-"*20
+            response = self.do(response)
+            print "RESPONSE: " + str(response.split("\r\n")[0].split()[1:3])
+            print "+"*100
+            print response
+            conn.sendall(response)
+            conn.close()
+
+
 
 
 

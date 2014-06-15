@@ -7,10 +7,12 @@ class Client:
 
     def __init__(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
-        self.client_socket.connect(('127.0.0.1', 4017))
+        self.client_socket.connect(('127.0.0.1', 4018))
         self.buffer_size = 32
 
     def send(self, message):
+        # import pdb; pdb.set_trace()
+
         if isinstance(message, unicode):
             message = message.encode('utf-8')
         done = False
@@ -35,12 +37,14 @@ class Client:
             received_message.append(returned_message)
 
         self.client_socket.close()
+        final_message = ''.join(received_message)
 
-        return ''.join(received_message)
+        return '\r\n'.join(final_message.split('\r\n')[0:2])
 
 if __name__ == "__main__":
     _client = Client()
     _client.send(sys.argv[1])
+
     print "-"*20
     print _client.receive()
 

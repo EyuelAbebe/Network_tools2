@@ -45,6 +45,7 @@ def http_error(error):
 def do(_request):
     try:
         _request = parse_message(_request)
+        # import pdb; pdb.set_trace()
 
         if _request['method'] == 'GET' and _request['scheme'] == 'HTTP/1.1':
             return get(_request['path'])
@@ -68,28 +69,29 @@ def do(_request):
 
 def serve(socket, address):
 
-    response = []
+    received_message = []
     buffersize = 32
     done = False
     while not done:
         data = socket.recv(buffersize)
-        response.append(data)
-        print data
-        print '-'*30
-        print response
-        print '*'*30
+        received_message.append(data)
+
         if len(data) < buffersize:
             done = True
 
-    if len(response) > 1:
+    # if len(received_message) > 1:
 
-        response = ''.join(response)
-        print response
-        print '+'*100
-        response = do(response)
-        # import pdb; pdb.set_trace()
-        socket.sendall(response)
-        socket.close()
+    received_message = ''.join(received_message)
+    print data
+    print '-'*30
+    print received_message
+    print '+'*100
+    response = do(received_message)
+
+    print response
+    print '*'*100
+    socket.sendall(response)
+    socket.close()
 
 
 if __name__ == "__main__":

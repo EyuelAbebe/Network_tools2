@@ -1,4 +1,3 @@
-import pytest
 
 from echo_client import Client
 

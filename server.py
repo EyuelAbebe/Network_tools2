@@ -11,7 +11,6 @@ def parse_message(message):
         return parsed_message
     except IndexError:
         raise IndexError
-        #return self.http_error((400, 'Bad Request'))
 
 
 def return_uri(requested_path):
@@ -45,7 +44,6 @@ def http_error(error):
 def do(_request):
     try:
         _request = parse_message(_request)
-        # import pdb; pdb.set_trace()
 
         if _request['method'] == 'GET' and _request['scheme'] == 'HTTP/1.1':
             return get(_request['path'])
@@ -79,17 +77,14 @@ def serve(socket, address):
         if len(data) < buffersize:
             done = True
 
-    # if len(received_message) > 1:
-
     received_message = ''.join(received_message)
-    print data
-    print '-'*30
-    print received_message
-    print '+'*100
-    response = do(received_message)
 
+    print '+'*50
+    print received_message
+    print '-'*40
+    response = do(received_message)
     print response
-    print '*'*100
+    print '+'*50
     socket.sendall(response)
     socket.close()
 

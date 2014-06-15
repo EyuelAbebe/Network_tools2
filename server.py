@@ -26,7 +26,7 @@ def get(requested_path):
 
     if requested_path == '/':
         return'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s' % ('text/html', return_Tree())
-    
+
     _lookUpPath = _cwd + requested_path
     _fileType = os.path.splitext(_lookUpPath)[1]
     fileType = mimetypes.types_map[_fileType]

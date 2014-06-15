@@ -1,13 +1,14 @@
 import pytest
 
 from echo_client import Client
+from generate_tree import return_Tree
 
 
 def test_200():
 
     _client = Client()
     _client.send("GET / HTTP/1.1")
-    assert _client.receive() == 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n200 OK'
+    assert _client.receive() == 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s' %return_Tree()
 
 
 def test_400():
@@ -26,6 +27,11 @@ def test_405():
     _client.send("HEAD / HTTP/1.1")
     assert _client.receive() == 'HTTP/1.1 405 Method Not Allowed\r\nContent-Type: text/plain\r\n\r\n405 Method Not Allowed'
 
+def test_500():
+
+    _client = Client()
+    _client.send("GET /adsfasdfasd HTTP/1.1")
+    assert _client.receive() == 'HTTP/1.1 500 Server Error\r\nContent-Type: text/plain\r\n\r\n500 Server Error'
 
 def test_505():
 
@@ -35,5 +41,6 @@ def test_505():
 
 
 def test_404():
-    pass
-    # cant test till there are files that cant be found
+    _client = Client()
+    _client.send("GET /root/cpp.jpeg HTTP/1.1")
+    assert _client.receive() == 'HTTP/1.1 404 Not Found\r\nContent-Type: text/plain\r\n\r\n404 Not Found'

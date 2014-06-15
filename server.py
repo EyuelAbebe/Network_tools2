@@ -1,4 +1,6 @@
 
+from generate_tree import return_Tree
+
 
 def parse_message(message):
     try:
@@ -23,8 +25,8 @@ def get(requested_path):
     _cwd = os.getcwd()
 
     if requested_path == '/':
-        requested_path = '/root/html/index.html'
-
+        return'HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n%s' % ('text/html', return_Tree())
+    
     _lookUpPath = _cwd + requested_path
     _fileType = os.path.splitext(_lookUpPath)[1]
     fileType = mimetypes.types_map[_fileType]

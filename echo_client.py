@@ -39,7 +39,7 @@ class Client:
         self.client_socket.close()
         final_message = ''.join(received_message)
 
-        return '\r\n'.join(final_message.split('\r\n')[0:2])
+        return final_message
 
 if __name__ == "__main__":
     _client = Client()
